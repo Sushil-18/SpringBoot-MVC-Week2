@@ -71,7 +71,7 @@ We welcome and appreciate contributions to our project! Whether you are a season
 
 ### How You Can Contribute
 
-- **Submit Enhancements**: Have an idea for a new feature or improvement? We’d love to hear it! You can [propose enhancements](https://github.com/your-username/simple-springboot-mvc/issues) or contribute code via pull requests.
+- **Submit Enhancements**: Have an idea for a new feature or improvement? We’d love to hear it! You can [propose enhancements](https://github.com/Sushil-18/SpringBoot-MVC-Week2/issues) or contribute code via pull requests.
 
 ### How to Get Started
 1. Fork the repository.
