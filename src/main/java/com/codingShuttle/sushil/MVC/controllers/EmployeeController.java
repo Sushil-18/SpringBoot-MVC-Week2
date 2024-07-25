@@ -4,6 +4,7 @@ import com.codingShuttle.sushil.MVC.dto.EmployeeDTO;
 import com.codingShuttle.sushil.MVC.entities.EmployeeEntity;
 import com.codingShuttle.sushil.MVC.repositories.EmployeeRepository;
 import com.codingShuttle.sushil.MVC.services.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class EmployeeController {
 
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long employeeId){
+    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable @Valid Long employeeId){
         Optional<EmployeeDTO> employeeDTO =  employeeService.getEmployeeById(employeeId);
 /*
         if(employeeDTO == null) return ResponseEntity.notFound().build();
@@ -49,25 +50,25 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO newEmployee){
+    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody @Valid EmployeeDTO newEmployee){
         EmployeeDTO savedEmployee =  employeeService.createEmployee(newEmployee);
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
 
     @PutMapping("/{employeeId}")
-    public ResponseEntity<EmployeeDTO> updateEmployeeById(@RequestBody EmployeeDTO employeeDTO,@PathVariable Long employeeId){
+    public ResponseEntity<EmployeeDTO> updateEmployeeById(@RequestBody @Valid EmployeeDTO employeeDTO,@PathVariable @Valid Long employeeId){
         return ResponseEntity.ok(employeeService.updateEmployeeById(employeeDTO,employeeId));
     }
 
     @DeleteMapping("/{employeeId}")
-    public ResponseEntity<Boolean> deleteEmployeeById(@PathVariable Long employeeId){
+    public ResponseEntity<Boolean> deleteEmployeeById(@PathVariable @Valid Long employeeId){
         boolean isDeleted =  employeeService.deleteEmployeeById(employeeId);
         if(!isDeleted) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(true);
     }
 
     @PatchMapping("/{employeeId}")
-    public ResponseEntity<EmployeeDTO> updatePartialEmployeeById(@PathVariable Long employeeId ,@RequestBody Map<String, Object> updates){
+    public ResponseEntity<EmployeeDTO> updatePartialEmployeeById(@PathVariable @Valid Long employeeId , @RequestBody @Valid Map<String, Object> updates){
         EmployeeDTO updatedEmployee = employeeService.updatePartialEmployeeById(employeeId,updates);
         if(updatedEmployee == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(updatedEmployee);
