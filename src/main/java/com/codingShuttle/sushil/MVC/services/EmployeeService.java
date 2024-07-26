@@ -57,18 +57,18 @@ public class EmployeeService {
     }
 
     public boolean existsById(Long employeeId){
-        return employeeRepository.existsById(employeeId);
+        boolean employeeExists =  employeeRepository.existsById(employeeId);
+        if(!employeeExists) throw new RuntimeException("Employee Not found with the id:"+employeeId);
+        return true;
     }
     public boolean deleteEmployeeById(Long employeeId) {
-       boolean exists = existsById(employeeId);
-        if(!exists) return false;
+        existsById(employeeId);
         employeeRepository.deleteById(employeeId);
         return  true;
     }
 
     public EmployeeDTO updatePartialEmployeeById(Long employeeId, Map<String, Object> updates) {
-        boolean exists = existsById(employeeId);
-        if(!exists) return null;
+        existsById(employeeId);
         EmployeeEntity employeeEntity = employeeRepository.findById(employeeId).get();
         updates.forEach((field,value)->{
            Field fieldToBeUpdated = ReflectionUtils.findRequiredField(EmployeeEntity.class,field);
